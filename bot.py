@@ -120,7 +120,9 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return ConversationHandler.END
 
 if __name__ == "__main__":
-    TOKEN = "8404087668:AAFRabaGH_Gfc-ljJVlT3ZxScwlkHDNRG6c"  # Replace with your bot token
+    TOKEN = os.getenv("TELEGRAM_TOKEN")  # Get token from environment variable
+    if not TOKEN:
+        raise ValueError("TELEGRAM_TOKEN environment variable not set!")
 
     app = ApplicationBuilder().token(TOKEN).build()
 
@@ -134,6 +136,4 @@ if __name__ == "__main__":
     )
 
     app.add_handler(conv_handler)
-
-    print("Bot is running...")
     app.run_polling()
